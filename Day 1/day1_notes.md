@@ -60,7 +60,7 @@ is truthy._
   own code as well.
 * Methods that end in `!` modify the thing they were called on: 
   * `my_array.reverse` returns an array with the elements ordered opposite
-    those of my_array.
+    those of `my_array`.
   * `my_array.reverse!` does the same thing, _and_ reverses the order of 
     `my_array`.
 * You only need parens for a method call if the method takes arguments (but 
