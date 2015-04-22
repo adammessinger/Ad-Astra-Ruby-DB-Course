@@ -3,7 +3,7 @@
 ##Ruby Basics
 
 https://canvas.instructure.com/courses/922390/pages/ruby-basics  
-http://www.tutorialspoint.com/ruby/index.htm
+http://www.tutorialspoint.com/ruby/index.htm <br>
 http://ruby-doc.org/core-2.1.5/ 
 
 * Server-side
