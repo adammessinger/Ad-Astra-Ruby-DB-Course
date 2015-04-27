@@ -9,7 +9,7 @@ http://ruby-doc.org/core-2.1.5/
 * Server-side
 * About 20 years old -- mature but not "old"
 * Interpreted
-* Loosely Typed
+* Dynamically (but strongly) typed
 * Motivated by a desire for clean syntax -- easy to write, read, and use
 * You can define your own operators on any type, for example to implement
   the (missing) `++` functionality
