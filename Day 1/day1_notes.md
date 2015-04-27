@@ -94,6 +94,71 @@ is truthy._
 * Also has `.first(n)` and `.last(n)` to return the first or last _n_ elements
   on the array.
 
+###Ranges
+
+http://ruby-doc.org/core-2.1.5/Range.html
+
+> A Range represents an interval -- a set of values with a beginning and an end.
+> Ranges may be constructed using the `s..e` and `s...e` literals, or with `::new`.
+> Ranges constructed using `..` run from the beginning to the end inclusively.
+> Those created using `...` exclude the end value. When used as an iterator,
+> ranges return each value in the sequence.
+>
+> ```ruby
+> (-1..-5).to_a      #=> []
+> (-5..-1).to_a      #=> [-5, -4, -3, -2, -1]
+> ('a'..'e').to_a    #=> ["a", "b", "c", "d", "e"]
+> ('a'...'e').to_a   #=> ["a", "b", "c", "d"]
+> ```
+>
+> <cite>[ruby-doc.org: Range](http://ruby-doc.org/core-2.1.5/Range.html)</a></cite>
+
+Ranges aren't quite like any variable type I've used before. There's more to learn
+in the docs, but here are the high points:
+
+* Can determine if something would fit within a range using `.cover?` method,
+  whether it's **actually** in the range using `.include?`. An example from 
+  [a StackOverflow explanation](http://stackoverflow.com/a/21609473):
+  ```ruby
+  ('a'..'z').cover?('yellow') # => true
+  ('a'..'z').include?('yellow') # => false
+  ('yellaa'..'yellzz').include?('yellow') # => true
+  ```
+* Can iterate over a range using `.each`:
+  ```ruby
+  (10..15).each {|n| print n, ' ' }
+  # prints: 10 11 12 13 14 15
+
+  (2.5..5).each {|n| print n, ' ' }
+  # raises: TypeError: can't iterate from Float
+  ```
+* Can return the object that _defines the end of the range_ (not necessarily the
+  last thing _in_ the range) with `.end`:
+  ```ruby
+  (1..10).end    #=> 10
+  (1...10).end   #=> 10
+  ```
+* Can also use `.last`, which acts like `.end` when called with no arguments but
+  returns an array of the last _n_ things in the range if called with an integer arg:
+  ```ruby
+  (10..20).last      #=> 20
+  (10...20).last     #=> 20
+  (10..20).last(3)   #=> [18, 19, 20]
+  (10...20).last(3)  #=> [17, 18, 19]
+  (10...20).last(1)  #=> [19]
+  ```
+* Much like `.last`, the `.first` method can give you the first or first _n_
+  things in a range:
+  ```ruby
+  (10..20).first     #=> 10
+  (10..20).first(3)  #=> [10, 11, 12]
+  ```
+* Get the largest and smallest values in a range with `.max` and `.min`:
+  ```ruby
+  (10..20).min  #=> 10
+  (10..20).max  #=> 20
+  ```
+
 ###Hashes
 
 ```ruby
