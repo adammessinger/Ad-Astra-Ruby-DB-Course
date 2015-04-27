@@ -1,4 +1,4 @@
-#Intro to Ruby & Databases Day 1
+#Intro to Ruby & Databases Week 1, Day 1
 
 ##Ruby Basics
 

@@ -1,4 +1,4 @@
-#Intro to Ruby & Databases Day 2
+#Intro to Ruby & Databases Week 1, Day 2
 
 ##BDD With RSpec
 
