@@ -13,8 +13,5 @@ def jedi_name first_name, first_pet_name, birth_city
 end
 
 def get_name_segment word
-  unless word.length < 3
-    word = /^.*?[aeiouy]+[a-z&&[^aeiouy]]+?/i.match(word).to_s
-  end
-  word
+  word.length < 3 ? word : /^.*?[aeiouy]+[a-z&&[^aeiouy]]+?/i.match(word).to_s
 end
