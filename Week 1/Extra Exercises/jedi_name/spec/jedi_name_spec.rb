@@ -3,8 +3,8 @@ require 'jedi_name'
 
 describe 'jedi_name' do
   it 'returns a Jedi Name based on parts of first name, first pet name, and birth city' do
-    expect(jedi_name 'Adam', 'Farley', 'Arkansas City').to(eq 'Yelmad Adfar of planet Ytic')
-    expect(jedi_name 'Lauren', 'Scout', 'Palm Bay').to(eq 'Tuocner Laurscout of planet Yab')
+    expect(jedi_name 'Jordan', 'Jenkins', 'Panama City').to(eq 'Sniknad Jorjen of planet Ytic')
+    expect(jedi_name 'Lauren', 'Cherry', 'Tucson').to(eq 'Yrner Laurcher of planet Noscut')
     expect(jedi_name 'Levi', 'Bryce', 'Wichita').to(eq 'Eciv Levbryc of planet Atihciw')
     expect(jedi_name 'Allyson', 'Theodore', 'Pensacola').to(eq 'Ernos Altheod of planet Alocasnep')
     expect(jedi_name 'Al', 'Ted', 'Prue').to(eq 'Detla Alted of planet Eurp')
