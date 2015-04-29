@@ -30,6 +30,8 @@ def add_task
   puts "Task added.\n\n"
 end
 
+# TODO: fix this deleting the last thing on the array if string is passed
+# (because it always ends up passing -1 to delete_at)
 def delete_task
   puts "\nEnter the number of the task to delete:"
   task_choice = gets.chomp.to_i - 1
