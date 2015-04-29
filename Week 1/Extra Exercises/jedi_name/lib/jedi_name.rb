@@ -1,4 +1,8 @@
 def jedi_name first_name, first_pet_name, birth_city
+  first_name.strip!
+  first_pet_name.strip!
+  birth_city.strip!
+
   jedi_first = get_name_segment first_pet_name.reverse
   jedi_first += get_name_segment first_name.reverse
   jedi_first.capitalize!
