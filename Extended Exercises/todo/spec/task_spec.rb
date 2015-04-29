@@ -6,17 +6,24 @@ describe Task do
     Task.clear
   end
 
-  it 'is initialized with a description' do
-    test_task = Task.new('learn Ruby')
+  it 'is initialized with a hash of attributes' do
+    test_task = Task.new({:description => 'learn Ruby'})
 
     expect(test_task).to(be_an_instance_of Task)
     expect(test_task.description).to(eq 'learn Ruby')
   end
 
   it 'is initialized with a created time' do
-    test_task = Task.new('foo')
+    test_task = Task.new({:description => 'foo'})
 
     expect(test_task.created).to(be_an_instance_of Time)
+  end
+
+  it 'can change a task\'s description after it is created' do
+    test_task = Task.new({:description => 'foo'})
+
+    test_task.description = 'bar'
+    expect(test_task.description).to(eq 'bar')
   end
 
   describe '.all' do
@@ -27,7 +34,7 @@ describe Task do
 
   describe '#save' do
     it 'adds a task to the array of saved tasks' do
-      test_task = Task.new('wash the lion')
+      test_task = Task.new({:description => 'wash the lion'})
 
       test_task.save
       expect(Task.all).to(eq [test_task])
@@ -36,7 +43,7 @@ describe Task do
 
   describe '.clear' do
     it 'deletes all the saved tasks' do
-      Task.new('foo').save
+      Task.new({:description => 'foo'}).save
       Task.clear
       expect(Task.all).to(eq [])
     end

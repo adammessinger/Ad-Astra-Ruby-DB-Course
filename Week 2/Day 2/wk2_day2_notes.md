@@ -48,3 +48,15 @@ task.description  #=> 'foo'
 
 ###Initializing with a Hash
 
+This is almost exactly like passing an object hash as a function argument in JS:
+
+```ruby
+Task.new({:name => 'learn', :description => 'learn Ruby'})
+
+class Task
+  def initialize(attributes)
+    @description = attributes[:description]
+    @name = attributes[:name]
+  end
+end
+```

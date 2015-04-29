@@ -2,6 +2,9 @@
 class Task
   @@all_tasks = []
 
+  attr_accessor :description
+  attr_reader :created
+
   def Task.all
     @@all_tasks
   end
@@ -10,20 +13,12 @@ class Task
     @@all_tasks = []
   end
 
-  def initialize(description)
-    @description = description
+  def initialize(attributes)
+    @description = attributes[:description]
     @created = Time.new
   end
 
   def save
     @@all_tasks.push self
-  end
-
-  def description
-    @description
-  end
-
-  def created
-    @created
   end
 end
