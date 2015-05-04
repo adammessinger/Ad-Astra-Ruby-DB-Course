@@ -2,13 +2,13 @@
 
 ##The OOP Paradigm
 
-A **class** is a definition or template for a thing that has certain properties 
+A **class** is a definition or template for a thing that has certain properties
 and actions. An **object** is an instance of a class. For example, Tod Smith might
-be an instance of the Employee class. 
+be an instance of the Employee class.
 
-All employees, including Tod, would share certain **properties** in common like 
+All employees, including Tod, would share certain **properties** in common like
 `hire_date`. They also share certain **methods**, which are functions that represent
-the actions of that object. Methods of an Employee class and its descendant 
+the actions of that object. Methods of an Employee class and its descendant
 objects might include `hire` and `terminate`.
 
 ##Ruby's Object Model
@@ -31,7 +31,7 @@ class Programmer
 end
 ```
 
-In Ruby, a class **must** start with a capital letter and **should** be in 
+In Ruby, a class **must** start with a capital letter and **should** be in
 StudlyCaps. It's good practice to limit yourself to one class per file.
 
 To create an instance of a class, call the `new` method on it: `adam = Programmer.new`.
@@ -47,8 +47,9 @@ end
 ```
 
 The `self` keyword in Ruby refers to the object that the method using it was
-called on, like `this` in some other languages. For example, to extend the `Integer`
-class with an `add` method that adds a number to the integer it was called on:
+called on, like `this` in some other languages. For example, to extend the
+`Integer` class with an `add` method that adds a number to the integer it was
+called on:
 
 ```ruby
 class Integer
@@ -64,7 +65,7 @@ end
 
 ###Initialize
 
-The `initialize` method is a special method that gets run when a new instance of 
+The `initialize` method is a special method that gets run when a new instance of
 a class is created with `new`.
 
 ```ruby
@@ -120,9 +121,9 @@ rect1.square?  #=> true
 
 ##Global Variables
 
-You create a global variable by prefixing its name with `@` like an instance 
-variable, but _outside_ any method. As in other languages, be careful with this -- 
-it's easy to shoot yourself in the foot with globals.
+You create a global variable by prefixing its name with `@` like an instance
+variable, but _outside_ any class or method. As in other languages, be careful
+with this -- it's easy to shoot yourself in the foot with globals.
 
 ```ruby
 require './lib/task'
@@ -149,9 +150,9 @@ end
 
 ###Getters
 
-You can't access a class's instance variables directly from outside that class --
-they'd be out of scope. To do this, you need to define a method that returns the 
-variable you want. This is called a **getter**.
+You can't access a class's instance variables directly from outside that class
+-- they'd be out of scope. To do this, you need to define a method that returns
+the variable you want. This is called a **getter**.
 
 ```ruby
 class Task
@@ -168,10 +169,10 @@ end
 
 ###Setters
 
-To change the value of an instance variable from outside the class, you need a 
+To change the value of an instance variable from outside the class, you need a
 **setter** method. In Ruby, you can end these method's names in `=` to enable a
 bit of syntactic sugar. It lets you call the setter like either
 `object.property=('value')` _or_ `object.property = 'value'`. If that feels too
 weird, or too [magical](http://en.wikipedia.org/wiki/Magic_%28programming%29),
-you can always just name your setters something like `set_value` and call them 
-like any other method.
+you can always just name your setters something like `set_property` and call
+them like any other method.
