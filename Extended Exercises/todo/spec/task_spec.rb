@@ -19,7 +19,7 @@ describe Task do
     expect(test_task.created).to(be_an_instance_of Time)
   end
 
-  it 'can change a task\'s description after it is created' do
+  it "can change a task's description after it is created" do
     test_task = Task.new({:description => 'foo'})
 
     test_task.description = 'bar'
