@@ -5,16 +5,18 @@ def main_menu
     puts "\nCOMMANDS"
     puts '"a" to Add a task' + "\n"
     puts '"l" to List all of your tasks.' + "\n"
-    # puts '"r" to Rename a task.' + "\n"
+    puts '"r" to Rename a task.' + "\n"
     puts '"d" to Delete a task' + "\n"
     puts '"c" to Clear (delete) all tasks' + "\n"
     puts '"x" to eXit.'
-    main_choice = gets.chomp
+    main_choice = gets.strip
 
     if main_choice == 'a'
       add_task
     elsif main_choice == 'l'
       list_tasks
+    elsif main_choice == 'r'
+      rename_task
     elsif main_choice == 'd'
       delete_task
     elsif main_choice == 'c'
@@ -37,33 +39,40 @@ def add_task
   puts "Task added.\n\n"
 end
 
-# TODO: fix this deleting the last thing on the array if string is passed
-# (because it always ends up passing -1 to delete_at). Also, make it an instance
-# method like it should be.
+# TODO: Make deletion an instance method like it should be.
 def delete_task
   puts "\nEnter the number of the task to delete:"
-  task_choice = gets.chomp.to_i - 1
+  user_choice = gets.strip
+  task_index = user_choice.to_i - 1
 
-  if Task.all[task_choice]
-    Task.all.delete_at task_choice
+  if task_index > 0 && Task.all[task_index]
+    Task.all.delete_at task_index
+    puts "\nTask number #{user_choice} deleted."
   else
-    puts "\n#{task_choice + 1} is not a valid task number."
+    puts "\nThat's not a valid task number."
   end
 end
 
+# TODO: prompt "Are you sure you want to delete all tasks?"
 def clear_tasks
   Task.clear
+  puts "\nAll tasks deleted."
 end
 
-# def rename_task
-#   puts "\nEnter the number of the task to rename:"
-#   task_choice = gets.chomp.to_i - 1
+def rename_task
+  puts "\nEnter the number of the task to rename:"
+  user_choice = gets.strip
+  task_index = user_choice.to_i - 1
 
-#   if Task.all[task_choice]
-#   else
-#     puts "\n#{task_choice + 1} is not a valid task number."
-#   end
-# end
+  if task_index > 0 && Task.all[task_index]
+    puts "\nEnter a new description:"
+    new_descr = gets.strip
+    Task.all[task_index].description = new_descr
+    puts "\nTask number #{user_choice} renamed to \"#{new_descr}\""
+  else
+    puts "\nThat's not a valid task number."
+  end
+end
 
 def list_tasks
   puts "\nHere are all of your tasks:"
