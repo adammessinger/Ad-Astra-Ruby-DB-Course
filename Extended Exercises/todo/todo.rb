@@ -45,14 +45,13 @@ def add_task
 end
 
 
-# TODO: Make deletion a class (instance?) method.
 def delete_task
   puts "\nEnter the number of the task to delete:"
   user_choice = gets.strip
   task_index = user_choice.to_i - 1
 
   if task_index > 0 && Task.all[task_index]
-    Task.all.delete_at task_index
+    Task.delete task_index
     puts "\nTask number #{user_choice} deleted."
   else
     puts "\nThat's not a valid task number."

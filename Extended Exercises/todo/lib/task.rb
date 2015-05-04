@@ -13,6 +13,10 @@ class Task
     @@all_tasks = []
   end
 
+  def Task.delete(index)
+    @@all_tasks.delete_at index
+  end
+
   def initialize(attributes)
     @description = attributes[:description]
     @created = Time.new

@@ -32,20 +32,28 @@ describe Task do
     end
   end
 
+  describe '.clear' do
+    it 'deletes all the saved tasks' do
+      Task.new({:description => 'foo'}).save
+      Task.clear
+      expect(Task.all).to(eq [])
+    end
+  end
+
+  describe '.delete' do
+    it 'deletes the task at the passed array index' do
+      Task.new({:description => 'qux'}).save
+      Task.delete(0)
+      expect(Task.all).to(eq [])
+    end
+  end
+
   describe '#save' do
     it 'adds a task to the array of saved tasks' do
       test_task = Task.new({:description => 'wash the lion'})
 
       test_task.save
       expect(Task.all).to(eq [test_task])
-    end
-  end
-
-  describe '.clear' do
-    it 'deletes all the saved tasks' do
-      Task.new({:description => 'foo'}).save
-      Task.clear
-      expect(Task.all).to(eq [])
     end
   end
 end
