@@ -1,3 +1,6 @@
+# TODO: generalize input and error message handling, at least for cases when
+# user has to provide a valid task number.
+
 require './lib/task'
 
 def main_menu
@@ -11,6 +14,7 @@ def main_menu
     puts '"x" to eXit.'
     main_choice = gets.strip
 
+    # TODO: use switch
     if main_choice == 'a'
       add_task
     elsif main_choice == 'l'
@@ -30,6 +34,7 @@ def main_menu
   end
 end
 
+
 def add_task
   puts "\nEnter a description of the new task:"
   user_description = gets.strip
@@ -39,7 +44,8 @@ def add_task
   puts "Task added.\n\n"
 end
 
-# TODO: Make deletion an instance method like it should be.
+
+# TODO: Make deletion a class (instance?) method.
 def delete_task
   puts "\nEnter the number of the task to delete:"
   user_choice = gets.strip
@@ -53,11 +59,13 @@ def delete_task
   end
 end
 
+
 # TODO: prompt "Are you sure you want to delete all tasks?"
 def clear_tasks
   Task.clear
   puts "\nAll tasks deleted."
 end
+
 
 def rename_task
   puts "\nEnter the number of the task to rename:"
@@ -73,6 +81,7 @@ def rename_task
     puts "\nThat's not a valid task number."
   end
 end
+
 
 def list_tasks
   puts "\nHere are all of your tasks:"
