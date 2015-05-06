@@ -17,7 +17,11 @@ This is  a lot like testing in JS with Mocha and Chai, but using RSpec.
 The test framework we'll be using is RSpec, which is delivered as a _gem_: 
 `gem install rspec`.
 
-**NOTE:** `gem install` wasn't working on Windows due to a bug in version 2.2.2 of RubyGems. This was fixed by [installing v2.2.3](https://gist.github.com/luislavena/f064211759ee0f806c88).
+**NOTE:** `gem install` wasn't working on Windows due to 
+[a bug](https://gist.github.com/luislavena/f064211759ee0f806c88) in the version 
+of RubyGems that came with [RailsInstaller](http://railsinstaller.org/). You can
+fix this by 
+[installing an update](https://gist.github.com/luislavena/f064211759ee0f806c88#installing-using-update-packages-new).
 
 ```ruby
 require('rspec')
