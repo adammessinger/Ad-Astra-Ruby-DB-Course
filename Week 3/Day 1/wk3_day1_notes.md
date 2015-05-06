@@ -336,3 +336,10 @@ results.each { |result| puts result.name }
 Pretty simple -- the argument passed to the `exec` method is a SQL statement you 
 want to run. The results come back is a `PG::Result` object -- a collection of 
 hashes you can iterate over.
+
+**NOTE:** Had a hell of a time getting PG to work. The current 
+[RailsInstaller](http://railsinstaller.org/) package that comes with Ruby 2.1.5
+includes PG 0.17.1, which is [only compatible with Ruby 2.0 and older](https://bitbucket.org/ged/ruby-pg/issue/182/pg-gem-error-under-ruby-210-in-rails-41).
+Upgrading to PG 0.18.1 didn't fix the problem. The ultimate solution was to 
+remove RailsInstaller from my system and install their Ruby 2.0.0 package. This
+also required re-fixing the RubyGems issue encountered in Week 1, Day 2.
