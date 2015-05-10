@@ -1,15 +1,25 @@
-require 'task'
 require 'rspec'
+require 'pg'
+require 'task'
+
+# NOTE: because first letter is capitalized, Ruby treats this as a constant
+DB = PG.connect({:dbname => 'todo_test', :user => 'postgres', :password => 'pickle'})
+
+RSpec.configure do |config|
+  config.after(:each) do
+    DB.exec("DELETE FROM tasks *")
+  end
+end
 
 describe Task do
   it 'is initialized with a name' do
     task = Task.new('learn SQL')
-    expect(task).to be_an_instance_of Task
+    expect(task).to(be_an_instance_of Task)
   end
 
   it 'tells you its name' do
     task = Task.new('learn SQL')
-    expect(task.name).to eq 'learn SQL'
+    expect(task.name).to(eq 'learn SQL')
   end
 
   it 'starts with no tasks' do
