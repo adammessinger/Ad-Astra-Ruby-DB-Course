@@ -1,9 +1,19 @@
 require 'rspec'
 require 'pg'
+require 'dotenv'
 require 'task'
 
+# setup the environment
+Dotenv.load!('./spec/.env.test')
+unless ENV.has_key?('PG_DATABASE') && ENV.has_key?('PG_USERNAME') && ENV.has_key?('PG_PASSWORD')
+  puts 'Missing one or more of these environment variables:'
+  puts 'PG_DATABASE, PG_USERNAME, PG_PASSWORD'
+  exit
+end
+
 # NOTE: because first letter is capitalized, Ruby treats this as a constant
-DB = PG.connect({:dbname => 'todo_test', :user => 'postgres', :password => 'pickle'})
+DB = PG.connect({:dbname => ENV['PG_DATABASE'], :user => ENV['PG_USERNAME'], :password => ENV['PG_PASSWORD']})
+
 
 RSpec.configure do |config|
   config.after(:each) do

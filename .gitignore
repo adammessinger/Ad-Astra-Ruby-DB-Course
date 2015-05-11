@@ -3,6 +3,11 @@
 /.idea
 *.sublime-*
 
+# .env Files #
+##############
+.env
+.env.test
+
 # Packages #
 ############
 *.7z
