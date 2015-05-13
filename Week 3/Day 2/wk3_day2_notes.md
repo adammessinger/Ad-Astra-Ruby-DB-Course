@@ -67,3 +67,69 @@ Here are the requirements for the project (finish one at a time):
 * Booleans are represented by `'t'` and `'f'`.
 * The SQL equivalent of `nil` is `NULL`. If you are trying to perform an insert
   and need to leave a value out, you should pass in `NULL`, not `nil`.
+
+##Join Statements
+
+Joins are a way to combine and/or winnow data from more than one table in a single
+query instead of multiple queries. It's been a while, but you did this _tons_ 
+when writing reports for Southwestern's fundraising office.
+
+For example, let's say a zoo has a table for its animal trainers, a table for the
+animals, and a table that associates trainers with animals in a many-to-many
+relationship:
+
+```
+ id | species
+----+--------
+   1| tiger
+   2| lion   
+   3| gorilla
+
+
+ id |     name      
+----+-----------------
+   1| harry houdini
+   2| missy mysterious
+
+
+ id | animal_id | trainer_id
+----+-----------+-----------
+   1|  1        |1
+   2|  2        |1
+   3|  1        |2
+```
+
+If we want to figure out who all of Harry's animals are without using a join, we 
+have to go through two steps. First, we select all of the entries in the join
+table, lessons:
+
+```sql
+SELECT animal_id FROM lessons WHERE trainer_id = 1;
+```
+
+From this statement, we get the animal_ids 1 and 2 back. Now, we have to loop 
+through each of these animal_ids and select the corresponding animal:
+
+SELECT * FROM animals WHERE id = 1;
+SELECT * FROM animals WHERE id = 2;
+To do this more efficiently, we can use a 3-table join:
+
+SELECT animals.* FROM
+trainers JOIN lessons ON (trainers.id = lessons.trainer_id)
+         JOIN animals ON (lessons.animal_id = animals.id)
+WHERE trainers.id = 1;
+
+**NOTE:** The above joins are `INNER JOIN`s. There are multiple types:
+
+* `INNER JOIN` - The data has to exist in both tables.
+* `LEFT OUTER JOIN` - The data can exist on the left table in the join but not
+  in the right table. For example, if you wanted to include animals without a 
+  trainer.
+* `RIGHT OUTER JOIN` - Like its left counterpart, except that the optional data
+  is on the left side of the join statement.
+
+Some additional resources:
+
+* http://www.sql-join.com/
+* http://blog.codinghorror.com/a-visual-explanation-of-sql-joins/
+* http://www.w3schools.com/sql/sql_join.asp
