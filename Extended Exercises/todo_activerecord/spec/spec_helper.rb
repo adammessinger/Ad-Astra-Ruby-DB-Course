@@ -11,7 +11,7 @@ unless ENV.has_key?('PG_USERNAME') && ENV.has_key?('PG_PASSWORD')
 end
 
 # connect to DB
-ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))["test"].merge({
+ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))['test'].merge({
   :username => ENV['PG_USERNAME'],
   :password => ENV['PG_PASSWORD']
 }))
