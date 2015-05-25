@@ -1,6 +1,7 @@
 require 'active_record'
 require 'rspec'
 require 'task'
+require 'list'
 
 # connect to DB
 ActiveRecord::Base.establish_connection(
@@ -11,5 +12,6 @@ ActiveRecord::Base.establish_connection(
 RSpec.configure do |config|
   config.after(:each) do
     Task.all.each {|task| task.destroy}
+    List.all.each {|list| list.destroy}
   end
 end
