@@ -140,3 +140,28 @@ class Task
   end
 end
 ```
+
+##Debugging in Ruby
+
+(copy-pasted from course materials...)
+
+[Video](http://player.vimeo.com/video/88805430)
+
+Ruby has a similar set of debugging tools to JavaScript.
+
+`puts` is much like `alert()`. When you aren't sure where something in your code
+is broken, you can use `puts` to see where you get to. I often will write 
+`puts '*' * 88`, which will make a long line of stars across the screen when that
+line is reached, making it really clear that I got to that point (or didn't).
+
+`p` is a bit like `console.log()`. It's like `puts`, but when you `p` an object, 
+the output includes all of the instance variables and their values.
+
+`binding.pry` is like `debugger`. Install the `pry` gem and add `require 'pry'` 
+to any file; then stick `binding.pry` anywhere in that file, and when that point 
+is reached, you'll be dropped into an IRB-like console. In fact, many developers
+prefer Pry over IRB; you can start it from the command line by simply typing 
+`$ pry`.
+
+Pry is ridiculously cool and powerful. If you'd like to learn more about it, 
+check out the [introductory screencast](http://pryrepl.org/screencasts.html).
