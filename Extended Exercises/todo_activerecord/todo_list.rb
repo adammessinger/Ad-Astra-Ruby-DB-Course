@@ -1,9 +1,10 @@
 require 'active_record'
 require './lib/task'
 
-database_configurations = YAML::load(File.open('./db/config.yml'))
-development_configuration = database_configurations['development']
-ActiveRecord::Base.establish_connection(development_configuration)
+ActiveRecord::Base.establish_connection(
+  YAML::load(File.open('./db/database.yaml'))['development']
+)
+
 def welcome
   puts "Welcome to the To Do list!"
   menu

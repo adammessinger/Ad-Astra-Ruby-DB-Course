@@ -3,8 +3,10 @@
 /.idea
 *.sublime-*
 
-# .env Files #
-##############
+# Sensitive Config Files #
+##########################
+config.y*ml
+database.y*ml
 .env
 .env.test
 

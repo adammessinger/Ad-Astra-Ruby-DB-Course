@@ -1,7 +1,11 @@
 development:
   adapter: postgresql
   database: ar_todo_dev
+  username: johnuser
+  password: password
 
 test: 
   adapter: postgresql
   database: ar_todo_test
+  username: johnuser
+  password: password
