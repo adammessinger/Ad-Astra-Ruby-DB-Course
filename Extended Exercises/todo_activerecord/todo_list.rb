@@ -6,16 +6,17 @@ ActiveRecord::Base.establish_connection(
 )
 
 def welcome
-  puts "Welcome to the To Do list!"
+  puts "\nWelcome to the To Do list!"
+  puts '--------------------------'
   menu
 end
 
 def menu
   choice = nil
   until choice == 'e'
-    puts "Press 'a' to add a task, 'l' to list your tasks, or 'd' to mark a task as done."
+    puts "\nPress 'a' to add a task, 'l' to list your tasks, or 'd' to mark a task as done."
     puts "Press 'e' to exit."
-    choice = gets.chomp
+    choice = gets.strip
     case choice
     when 'a'
       add
@@ -24,33 +25,39 @@ def menu
     when 'd'
       mark_done
     when 'e'
-      puts "Good-bye!"
+      puts "\nGoodbye!"
     else
-      puts "Sorry, that wasn't a valid option."
+      puts "\nSorry, that wasn't a valid option."
     end
   end
 end
 
 def add
-  puts "What do you need to do?"
-  task_name = gets.chomp
+  puts "\nWhat do you need to do?"
+  task_name = gets.strip
   task = Task.new({:name => task_name, :done=> false})
   task.save
-  puts "'#{task_name}' has been added to your To Do list."
+  puts "\n'#{task_name}' has been added to your To Do list."
 end
 
 def list
-  puts "Here is everything you need to do:"
+  puts "\nHere is everything you need to do:"
+  puts '----------------------------------'
   Task.not_done.each {|task| puts task.name}
 end
 
 def mark_done
-  puts "Which of these tasks would you like to mark as done?"
-  Task.all.each {|task| puts task.name}
-
-  done_task_name = gets.chomp
+  puts "\nWhich of these tasks would you like to mark as done?"
+  puts '----------------------------------------------------'
+  Task.not_done.each {|task| puts task.name}
+  puts "\n"
+  done_task_name = gets.strip
   done_task = Task.where({:name => done_task_name}).first
-  done_task.update({:done => true})
+  if done_task
+    done_task.update({:done => true})
+  else
+    puts "\n'#{done_task_name}' is not a valid option."
+  end
 end
 
 welcome
