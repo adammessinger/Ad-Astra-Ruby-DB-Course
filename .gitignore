@@ -20,13 +20,15 @@ database.y*ml
 *.rar
 *.tar
 *.zip
- 
+
 # Logs and databases #
 ######################
 *.log
 *.sql
+# don't exclude SQL seed files
+!*_seed.sql
 *.sqlite
- 
+
 # OS generated files #
 ######################
 .DS_Store
@@ -35,4 +37,4 @@ database.y*ml
 .Spotlight-V100
 .Trashes
 ehthumbs.db
-Thumbs.db 
+Thumbs.db
