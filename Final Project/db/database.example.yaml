@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: restaurant_register_dev
+  username: johnuser
+  password: password
+
+test:
+  adapter: postgresql
+  database: restaurant_register_test
+  username: johnuser
+  password: password
