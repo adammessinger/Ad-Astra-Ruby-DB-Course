@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Order do
   it 'has many products' do
-    order  = Order.create(customer_name: 'Janet')
+    order  = Order.create(customer_name: 'Mark Many')
     burger = Product.all.where(code: 100)
     fries  = Product.all.where(code: 200)
     soda   = Product.all.where(code: 300)
@@ -12,6 +12,19 @@ describe Order do
     order.products << soda
 
     expect(order.products.to_a).to(eq [burger[0], fries[0], soda[0]])
+  end
+
+  it 'can look up orders by ID' do
+    order  = Order.create(customer_name: 'Lois Lookup')
+    burger = Product.all.where(code: 100)
+    fries  = Product.all.where(code: 200)
+    soda   = Product.all.where(code: 300)
+
+    order.products << burger
+    order.products << fries
+    order.products << soda
+
+    expect(Order.lookup_id(order.id)[0]).to(eq order)
   end
 
   it 'can calculate the subtotal before tax' do
@@ -45,7 +58,7 @@ describe Order do
   end
 
   it 'can calculate the grand total' do
-    order   = Order.create(customer_name: 'Tanya Tax')
+    order   = Order.create(customer_name: 'Gina Grand')
     cburger = Product.all.where(code: 101)
     tots    = Product.all.where(code: 201)
     soda    = Product.all.where(code: 300)
