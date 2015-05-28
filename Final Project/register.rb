@@ -34,9 +34,9 @@ def ui_menu
       when 'a'
         create_order()
       when 'l'
-        # lookup
+        # lookup()
       when 'o'
-        # list_orders
+        list_orders()
       when 'm'
         product_list()
       when 'x'
@@ -91,6 +91,22 @@ def add_food_to_order(order)
           puts "\nSorry, that wasn't a valid option."
         end
     end
+  end
+end
+
+
+def list_orders
+  orders = Order.all
+
+  if orders.length == 0
+    puts "\nNo orders found."
+    return false
+  end
+
+  puts "\nOrder List"
+  puts '----------'
+  orders.each do |order|
+    puts "ID \##{order.id}: " + format_money(order.grand_total) + " for #{order.customer_name}"
   end
 end
 
