@@ -22,7 +22,7 @@ def ui_menu
     puts '--------'
     puts '"A" to Add an order' + "\n"
     puts '"L" to Look up an order by its ID #' + "\n"
-    puts '"O" to list all Orders' + "\n"
+    puts '"O" to list all Orders' + "\n" # TODO: "list Open orders"
     puts '"M" to view the Menu' + "\n"
     # puts '"C" to Checkout an order (mark as paid)' + "\n"
     # puts '"D" to Delete an order' + "\n"
@@ -62,7 +62,9 @@ end
 
 def add_food_to_order(order)
   loop do
-    puts 'Add a food to the order by entering its ID #'
+    food = nil
+
+    puts "\nAdd a food to the order by entering its ID #"
     puts '("cancel" to go back, "menu" to view menu, "done" to finish & save):'
     choice = gets.strip.downcase
 
@@ -72,13 +74,19 @@ def add_food_to_order(order)
       when 'menu'
         product_list()
       when 'done'
-        order.save
-        puts "Order #{order.id} for #{order.customer_name}. TOTAL: " + format_money(order.grand_total)
-        return order
+        if order.products.length == 0
+          puts "\nSorry, but I can't save an order with nothing in it."
+          puts 'Did you mean "cancel"?' + "\n"
+        else
+          order.save
+          puts "\nOrder #{order.id} for #{order.customer_name} saved. TOTAL: " + format_money(order.grand_total)
+          return order
+        end
       else
-        if food = Product.all.where(code: choice.to_i)
+        food = Product.all.where(code: choice.to_i)
+        if food[0]
           order.products << food
-          puts "#{food.name} (" + format_money(food.price) + ') added!'
+          puts "#{food[0].name} (" + format_money(food[0].price) + ') added!'
         else
           puts "\nSorry, that wasn't a valid option."
         end
