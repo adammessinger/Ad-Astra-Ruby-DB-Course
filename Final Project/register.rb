@@ -119,7 +119,7 @@ end
 
 
 def format_money(amount)
-  '$' + (amount / 100.00).to_s
+  '$' + sprintf('%.2f', (amount / 100.00).round(2).to_s)
 end
 
 
