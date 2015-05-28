@@ -1,5 +1,3 @@
-# TODO: fix inability to run menu command again until another command is used
-
 require 'active_record'
 require './lib/order'
 require './lib/product'
