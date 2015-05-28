@@ -6,14 +6,17 @@ ActiveRecord::Base.establish_connection(
   YAML::load(File.open('./db/database.yaml'))['development']
 )
 
+
 def welcome
   puts "\nWelcome to the Restraunt Register!"
   puts '=================================='
-  ui_menu
+  ui_menu()
 end
+
 
 def ui_menu
   choice = nil
+
   until choice == 'x'
     puts "\nCOMMANDS"
     puts '--------'
@@ -29,13 +32,13 @@ def ui_menu
 
     case choice
       when 'a'
-        # add
+        create_order()
       when 'l'
         # lookup
       when 'o'
         # list_orders
       when 'm'
-        food_menu
+        product_list()
       when 'x'
         puts "\nGoodbye!"
       else
@@ -44,18 +47,61 @@ def ui_menu
   end
 end
 
-# TODO: fix inability to run menu command again until another command is used
-def food_menu
+
+def create_order
+  product_list()
+  puts "\nWhat's the customer's name (\"cancel\" to go back)?"
+  cust_name = gets.strip
+
+  if cust_name == 'cancel'
+    return false
+  end
+
+  add_food_to_order(Order.new(customer_name: cust_name))
+end
+
+
+def add_food_to_order(order)
+  loop do
+    puts 'Add a food to the order by entering its ID #'
+    puts '("cancel" to go back, "menu" to view menu, "done" to finish & save):'
+    choice = gets.strip.downcase
+
+    case choice
+      when 'cancel'
+        return false
+      when 'menu'
+        product_list()
+      when 'done'
+        order.save
+        puts "Order #{order.id} for #{order.customer_name}. TOTAL: " + format_money(order.grand_total)
+        return order
+      else
+        if food = Product.all.where(code: choice.to_i)
+          order.products << food
+          puts "#{food.name} (" + format_money(food.price) + ') added!'
+        else
+          puts "\nSorry, that wasn't a valid option."
+        end
+    end
+  end
+end
+
+
+def product_list
+  # TODO: fix inability to run menu command again until another command is used
   horiz_divider = '+------+--------------+--------+'
 
-  puts "\n" + horiz_divider
+  puts "\nMenu"
+  puts '----'
+  puts horiz_divider
   puts '| Code | Item         | Price  |'
   puts horiz_divider
 
   Product.all.each do |product|
     code   = product.code.to_s + table_cell_space(product.code, 6)
     name   = product.name + table_cell_space(product.name, 14)
-    price  = '$' + (product.price / 100.00).to_s
+    price  = format_money(product.price)
     price += table_cell_space(price, 8)
 
     puts "| #{code}| #{name}| #{price}|"
@@ -64,10 +110,16 @@ def food_menu
   puts horiz_divider
 end
 
+
+def format_money(amount)
+  '$' + (amount / 100.00).to_s
+end
+
+
 # returns space to put at the end of menu content to fill its "cell"
 def table_cell_space(content, cell_width)
   # NOTE: subtracts 1 for space at start of cell
   ' ' * (cell_width - content.to_s.length - 1)
 end
 
-welcome
+welcome()
