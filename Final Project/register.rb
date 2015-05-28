@@ -49,7 +49,6 @@ end
 
 
 def create_order
-  product_list()
   puts "\nWhat's the customer's name (\"cancel\" to go back)?"
   cust_name = gets.strip
 
