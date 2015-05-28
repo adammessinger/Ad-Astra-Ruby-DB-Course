@@ -1,3 +1,5 @@
+# TODO: fix inability to run menu command again until another command is used
+
 require 'active_record'
 require './lib/order'
 require './lib/product'
@@ -22,7 +24,7 @@ def ui_menu
     puts '--------'
     puts '"A" to Add an order' + "\n"
     puts '"L" to Look up an order by its ID #' + "\n"
-    puts '"O" to list all Orders' + "\n" # TODO: "list Open orders"
+    puts '"O" to list all Orders' + "\n" # TODO: "list Open orders?"
     puts '"M" to view the Menu' + "\n"
     # puts '"C" to Checkout an order (mark as paid)' + "\n"
     # puts '"D" to Delete an order' + "\n"
@@ -34,7 +36,7 @@ def ui_menu
       when 'a'
         create_order()
       when 'l'
-        # lookup()
+        lookup()
       when 'o'
         list_orders()
       when 'm'
@@ -95,6 +97,31 @@ def add_food_to_order(order)
 end
 
 
+def lookup
+  order = nil
+
+  puts "\nEnter the ID of the order you want to view:"
+  puts '("cancel" to go back, "list" for all orders)'
+  choice = gets.strip.downcase
+
+  case choice
+    when 'cancel'
+      return false
+    when 'list'
+      list_orders()
+      lookup()
+    else
+      order = Order.all.where(id: choice.to_i)
+      if order[0]
+        product_list(order)
+      else
+        puts "\nSorry, that wasn't a valid option."
+        lookup()
+      end
+  end
+end
+
+
 def list_orders
   orders = Order.all
 
@@ -111,17 +138,19 @@ def list_orders
 end
 
 
-def product_list
-  # TODO: fix inability to run menu command again until another command is used
+def product_list(order=[])
+  order = (order.length > 0) ? order : nil
+  products = (order == nil) ? Product.all : order[0].products
+  title = (order == nil) ? 'Menu' : "Order #{order[0].id} for #{order[0].customer_name} (TOTAL: " + format_money(order[0].grand_total) + ')'
   horiz_divider = '+------+--------------+--------+'
 
-  puts "\nMenu"
-  puts '----'
+  puts "\n#{title}"
+  puts '-' * title.length
   puts horiz_divider
   puts '| Code | Item         | Price  |'
   puts horiz_divider
 
-  Product.all.each do |product|
+  products.each do |product|
     code   = product.code.to_s + table_cell_space(product.code, 6)
     name   = product.name + table_cell_space(product.name, 14)
     price  = format_money(product.price)
