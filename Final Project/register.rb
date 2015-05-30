@@ -52,9 +52,7 @@ def create_order
   puts "\nWhat's the customer's name (\"cancel\" to go back)?"
   cust_name = gets.strip
 
-  if cust_name == 'cancel'
-    return false
-  end
+  return nil if cust_name == 'cancel'
 
   add_food_to_order(Order.new(customer_name: cust_name))
 end
@@ -70,7 +68,7 @@ def add_food_to_order(order)
 
     case choice
       when 'cancel'
-        return false
+        return nil
       when 'menu'
         product_list()
       when 'done'
