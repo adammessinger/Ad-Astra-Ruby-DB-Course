@@ -38,7 +38,7 @@ def ui_menu
       when 'o'
         list_orders()
       when 'm'
-        product_list()
+        list_products()
       when 'x'
         puts "\nGoodbye!"
       else
@@ -74,7 +74,7 @@ def add_food_to_order(order)
       when 'cancel'
         return nil
       when 'menu'
-        product_list()
+        list_products()
       when 'done'
         if order.products.length == 0
           puts "\nSorry, but I can't save an order with nothing in it."
@@ -112,7 +112,7 @@ def lookup
     elsif choice != 'cancel'
       order = Order.all.where(id: choice.to_i)
       if order[0]
-        product_list(order)
+        list_products(order[0])
         break
       else
         puts "\nSorry, that wasn't a valid option."
@@ -141,11 +141,14 @@ def list_orders
 end
 
 
-def product_list(order=[])
-  order = (order.length > 0) ? order : nil
-  products = (order == nil) ? Product.all : order[0].products
-  title = (order == nil) ? 'Menu' : "Order #{order[0].id} for #{order[0].customer_name} (TOTAL: " + format_money(order[0].grand_total) + ')'
+def list_products(order = nil)
   horiz_divider = '+------+--------------+--------+'
+  products = (order.nil?) ? Product.all : order.products
+  title = 'Menu'
+  unless order.nil?
+    title = "Order #{order.id} for #{order.customer_name} (TOTAL: "
+    title += format_money(order.grand_total) + ')'
+  end
 
   puts "\n#{title}"
   puts '-' * title.length
