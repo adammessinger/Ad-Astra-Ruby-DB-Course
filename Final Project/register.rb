@@ -49,12 +49,16 @@ end
 
 
 def create_order
+  new_order = nil
+
   puts "\nWhat's the customer's name (\"cancel\" to go back)?"
   cust_name = gets.strip
 
-  return nil if cust_name == 'cancel'
+  unless cust_name == 'cancel'
+    new_order = add_food_to_order(Order.new(customer_name: cust_name))
+  end
 
-  add_food_to_order(Order.new(customer_name: cust_name))
+  new_order
 end
 
 
@@ -94,10 +98,11 @@ end
 
 
 def lookup
-  order = nil
   choice = nil
 
   until choice == 'cancel'
+    order = nil
+
     puts "\nEnter the ID of the order you want to view:"
     puts '("cancel" to go back, "list" for all orders)'
     choice = gets.strip.downcase
@@ -115,7 +120,8 @@ def lookup
     end
   end
 
-  order
+  # if not cancelled, return just the order data
+  order = (order.nil?) ? order : order[0]
 end
 
 
