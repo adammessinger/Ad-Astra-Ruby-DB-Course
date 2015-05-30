@@ -22,10 +22,8 @@ def main_menu
     puts '--------'
     puts '"A" to Add an order' + "\n"
     puts '"L" to Look up an order by its ID #' + "\n"
-    puts '"O" to list all Orders' + "\n" # TODO: "list Open orders?"
+    puts '"O" to list all Orders' + "\n"
     puts '"M" to view the Menu' + "\n"
-    # puts '"C" to Checkout an order (mark as paid)' + "\n"
-    # puts '"D" to Delete an order' + "\n"
     puts '"X" to eXit.'
 
     choice = gets.strip.downcase
@@ -63,37 +61,38 @@ end
 
 
 def add_food_to_order(order)
-  loop do
+  choice = nil
+
+  until choice == 'cancel'
     food = nil
 
     puts "\nAdd a food to the order by entering its ID #"
     puts '("cancel" to go back, "menu" to view menu, "done" to finish & save):'
     choice = gets.strip.downcase
 
-    case choice
-      when 'cancel'
-        return nil
-      when 'menu'
-        list_products()
-      when 'done'
-        if order.products.length == 0
-          puts "\nSorry, but I can't save an order with nothing in it."
-          puts 'Did you mean "cancel"?' + "\n"
-        else
-          order.save
-          puts "\nOrder #{order.id} for #{order.customer_name} saved. TOTAL: " + format_money(order.grand_total)
-          return order
-        end
+    if choice == 'menu'
+      list_products()
+    elsif choice == 'done'
+      if order.products.length == 0
+        puts "\nSorry, but I can't save an order with nothing in it."
+        puts 'Did you mean "cancel"?' + "\n"
       else
-        food = Product.all.where(code: choice.to_i)
-        if food[0]
-          order.products << food
-          puts "#{food[0].name} (" + format_money(food[0].price) + ') added!'
-        else
-          puts "\nSorry, that wasn't a valid option."
-        end
+        order.save
+        puts "\nOrder #{order.id} for #{order.customer_name} saved. TOTAL: " + format_money(order.grand_total)
+        break
+      end
+    elsif choice != 'cancel'
+      food = Product.all.where(code: choice.to_i)
+      if food[0]
+        order.products << food
+        puts "#{food[0].name} (" + format_money(food[0].price) + ') added!'
+      else
+        puts "\nSorry, that wasn't a valid option."
+      end
     end
   end
+
+  order = (choice == 'cancel') ? nil : order
 end
 
 
@@ -128,15 +127,14 @@ end
 def list_orders
   orders = Order.all
 
-  if orders.length == 0
+  if orders.length > 0
+    puts "\nOrder List"
+    puts '----------'
+    orders.each do |order|
+      puts "ID \##{order.id}: " + format_money(order.grand_total) + " for #{order.customer_name}"
+    end
+  else
     puts "\nNo orders found."
-    return false
-  end
-
-  puts "\nOrder List"
-  puts '----------'
-  orders.each do |order|
-    puts "ID \##{order.id}: " + format_money(order.grand_total) + " for #{order.customer_name}"
   end
 end
 
