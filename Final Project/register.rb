@@ -10,11 +10,11 @@ ActiveRecord::Base.establish_connection(
 def welcome
   puts "\nWelcome to the Restraunt Register!"
   puts '=================================='
-  ui_menu()
+  main_menu()
 end
 
 
-def ui_menu
+def main_menu
   choice = nil
 
   until choice == 'x'
@@ -34,7 +34,7 @@ def ui_menu
       when 'a'
         create_order()
       when 'l'
-        lookup()
+        lookup_order()
       when 'o'
         list_orders()
       when 'm'
@@ -97,7 +97,7 @@ def add_food_to_order(order)
 end
 
 
-def lookup
+def lookup_order
   choice = nil
 
   until choice == 'cancel'
