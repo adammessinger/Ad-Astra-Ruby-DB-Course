@@ -95,26 +95,27 @@ end
 
 def lookup
   order = nil
+  choice = nil
 
-  puts "\nEnter the ID of the order you want to view:"
-  puts '("cancel" to go back, "list" for all orders)'
-  choice = gets.strip.downcase
+  until choice == 'cancel'
+    puts "\nEnter the ID of the order you want to view:"
+    puts '("cancel" to go back, "list" for all orders)'
+    choice = gets.strip.downcase
 
-  case choice
-    when 'cancel'
-      return false
-    when 'list'
+    if choice == 'list'
       list_orders()
-      lookup()
-    else
+    elsif choice != 'cancel'
       order = Order.all.where(id: choice.to_i)
       if order[0]
         product_list(order)
+        break
       else
         puts "\nSorry, that wasn't a valid option."
-        lookup()
       end
+    end
   end
+
+  order
 end
 
 
