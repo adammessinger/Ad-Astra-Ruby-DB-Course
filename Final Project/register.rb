@@ -82,7 +82,7 @@ def add_food_to_order(order)
         break
       end
     elsif choice != 'cancel'
-      food = Product.all.where(code: choice.to_i)
+      food = Product.lookup_code(choice.to_i)
       if food[0]
         order.products << food
         puts "#{food[0].name} (" + format_money(food[0].price) + ') added!'
