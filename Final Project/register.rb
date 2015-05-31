@@ -109,7 +109,7 @@ def lookup_order
     if choice == 'list'
       list_orders()
     elsif choice != 'cancel'
-      order = Order.all.where(id: choice.to_i)
+      order = Order.lookup_id(choice.to_i)
       if order[0]
         list_products(order[0])
         break
