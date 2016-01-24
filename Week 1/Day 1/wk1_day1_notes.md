@@ -1,10 +1,10 @@
-#Intro to Ruby & Databases Week 1, Day 1
+# Intro to Ruby & Databases Week 1, Day 1
 
-##Ruby Basics
+## Ruby Basics
 
-https://canvas.instructure.com/courses/922390/pages/ruby-basics  
+https://canvas.instructure.com/courses/922390/pages/ruby-basics
 http://www.tutorialspoint.com/ruby/index.htm <br>
-http://ruby-doc.org/core-2.1.5/ 
+http://ruby-doc.org/core-2.1.5/
 
 * Server-side
 * About 20 years old -- mature but not "old"
@@ -20,7 +20,7 @@ http://ruby-doc.org/core-2.1.5/
 
 **NOTE:** Raise numbers to a power with `**` operator. Can make large numbers more readable with underscores instead of commas -- `4_123_876`.
 
-###Variables
+### Variables
 
 * Integer
   * Fixnum for -2<sup>30</sup> to 2<sup>30-1</sup> (32-bit)
@@ -38,32 +38,32 @@ http://ruby-doc.org/core-2.1.5/
 
 Depending on type, a value (and therefore a variable containing that value)
 will have several methods. This is because values of all types are objects,
-similar to JS (which automatically 
-["boxes" and "unboxes"](http://stackoverflow.com/a/13056) its primative types 
-when you call their methods/properties, e.g. `'foo'.toUpperCase()`). 
+similar to JS (which automatically
+["boxes" and "unboxes"](http://stackoverflow.com/a/13056) its primative types
+when you call their methods/properties, e.g. `'foo'.toUpperCase()`).
 
-You can get a list of all the methods available for a value of a certain type 
-by calling the `.methods` method -- `4.methods` will get you a list of all the 
+You can get a list of all the methods available for a value of a certain type
+by calling the `.methods` method -- `4.methods` will get you a list of all the
 integer methods. You can learn a variable's type by calling the `.class` method on it: `my_array.class` returns "Array".
 
-**NOTE:** You don't need to use `var` or any other keyword to assign a 
-variable. Just name it and assign it (like PHP). You cannot declare a variable 
+**NOTE:** You don't need to use `var` or any other keyword to assign a
+variable. Just name it and assign it (like PHP). You cannot declare a variable
 without assigning _something_ to it.
 
-**NOTE:** In Ruby, only `false` and `nil` are 
-[falsey](http://james.padolsey.com/javascript/truthy-falsey/). Yes, _even zero 
+**NOTE:** In Ruby, only `false` and `nil` are
+[falsey](http://james.padolsey.com/javascript/truthy-falsey/). Yes, _even zero
 is truthy._
 
-###Methods
+### Methods
 
-* Methods that end in `?` by convention return a Boolean. Follow this in your 
+* Methods that end in `?` by convention return a Boolean. Follow this in your
   own code as well.
-* Methods that end in `!` modify the thing they were called on: 
+* Methods that end in `!` modify the thing they were called on:
   * `my_array.reverse` returns an array with the elements ordered opposite
     those of `my_array`.
-  * `my_array.reverse!` does the same thing, _and_ reverses the order of 
+  * `my_array.reverse!` does the same thing, _and_ reverses the order of
     `my_array`.
-* You only need parens for a method call if the method takes arguments (but 
+* You only need parens for a method call if the method takes arguments (but
   you can add them anyway if you want):
   * `5.even?` returns `false`
   * `5.even?()` returns `false`
@@ -72,19 +72,19 @@ is truthy._
   * `5.between?` -- **error**
 * Methods are chainable: `4.5.round.odd?` returns `true`
 
-###Strings
+### Strings
 
 * Concat with `+` but this can't coerce types
 * Can do string interpolation of vars with double quotes and `#{var_name}`:
   `"I am #{age} years old."`
-  * You can also interpolate basic expressions (e.g. math but not method 
+  * You can also interpolate basic expressions (e.g. math but not method
     calls): `"In #{age} years, I will be #{age + from_now} years old."`
-* Can slice out part of the string with a range or with an argument-like 
+* Can slice out part of the string with a range or with an argument-like
   syntax:
   * `my_var[2..6]` -- from char 2 to char 6
   * `my_var[2, 6]` -- from char 2, give me 6 chars
 
-###Arrays
+### Arrays
 
 * Like JS arrays, they can contain any type.
 * Can call methods that usually return a new array, like `.sort` and
@@ -94,7 +94,7 @@ is truthy._
 * Also has `.first(n)` and `.last(n)` to return the first or last _n_ elements
   on the array.
 
-###Ranges
+### Ranges
 
 http://ruby-doc.org/core-2.1.5/Range.html
 
@@ -117,7 +117,7 @@ Ranges aren't quite like any type I've used before. There's more to learn
 in the docs, but here are the high points...
 
 Can determine if something would fit within a range using `.cover?` method,
-whether it's **actually** in the range using `.include?`. An example from 
+whether it's **actually** in the range using `.include?`. An example from
 [a StackOverflow explanation](http://stackoverflow.com/a/21609473):
 
 ```ruby
@@ -170,7 +170,7 @@ Get the largest and smallest values in a range with `.max` and `.min`:
 (10..20).max  #=> 20
 ```
 
-###Hashes
+### Hashes
 
 ```ruby
 my_hash = {
@@ -180,37 +180,90 @@ my_hash = {
 }
 ```
 
-* A lot like JS objects, but any type can be a key instead of just strings. So 
+* A lot like JS objects, but any type can be a key instead of just strings. So
   really, more like an ECMAScript 6 `Map`.
 * Access properties via `hash[key]` syntax. You can't use dot notation like
   in JS.
 
-##Branching and Iteration
+## Branching and Iteration
 
 https://canvas.instructure.com/courses/922390/pages/branching-and-looping-in-ruby
 
-###Branching
+### Branching
 
 * No parentheses necessary around conditions.
 * Blocks start with `if [condition]` (e.g. `if foo == bar`) and end with `end`.
 * Ruby's version of `else if` is, weirdly, `elsif`.
 
-###Iteration
+```ruby
+if milk_is_sour && car_has_gas
+  'Time to go to the store.'
+elsif milk_is_sour && !car_has_gas
+  'Time to gas up the car.'
+else
+  'Yum!'
+end
+```
 
-* Use the "each" method on arrays, ranges, and hashes (see above link
+Ruby also has the `unless` comparison operator:
+
+```ruby
+unless milk_is_sour
+  'Yum!'
+else
+  'Time to go to the store.'
+end
+```
+
+### Iteration
+
+* Use the `each` method on arrays, ranges, and hashes (see above link
   for syntax).
   * For arrays, you define the inner var for the array value on each iteration.
   * For ranges, you define the inner var for the number in the range.
   * For hashes, you define the inner vars for key and value on each iteration.
-* There are other ways to loop without calling a method on a variable or 
-  value, but we'll get to that later.
+* There are other iteration methods, and also ways to loop without calling a
+  method on a variable or value. We'll get to that later, or
+  [you can find it here](http://www.skorks.com/2009/09/a-wealth-of-ruby-loops-and-iterators/).
 
-##Global Methods
+Iterating over an array:
 
-https://canvas.instructure.com/courses/922390/pages/global-methods 
+```ruby
+# one-liner:
+planets_from_sol.each { |name| print "#{{name}} "  }
+#=> Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune
+
+# block:
+planets_from_sol.each do |name|
+  print name + (name == planets_from_sol.last ? '' : ', ')
+end
+#=> Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+```
+
+Over a range:
+
+```ruby
+(1..10).each { |i| print "#{i} "  }  #=> 1 2 3 4 5 6 7 8 9 10
+```
+
+Over a hash:
+
+```ruby
+fave_cookies_by_person_fname.each do |name, cookie|
+  puts "#{name} loves to eat #{cookie}."
+end
+#=> Adam loves to eat chocolate chip.
+#=> Liz loves to eat Double Stuff Oreos.
+#=> Mila loves to eat salmon cat treats.
+```
+
+## Global Methods
+
+https://canvas.instructure.com/courses/922390/pages/global-methods
+https://player.vimeo.com/video/87877568
 
 * `rand(5)` gives you a random number between 0 and 5
 * `puts 'string'` prints the string followed by a newline
 * You can define your own methods with the `def` keyword
-* Unless you _explicitly say otherwise,_ the return value of your functions 
+* Unless you _explicitly say otherwise,_ the return value of your functions
   will always be the last evaluated expression.
